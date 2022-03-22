@@ -1,6 +1,6 @@
 {
   "name": "@snowflake-so/snowflake-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Snowflake CLI - A CLI for Solana Automation",
   "main": "bin/index.js",
   "bin": {
