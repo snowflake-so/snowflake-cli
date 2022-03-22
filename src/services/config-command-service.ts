@@ -36,11 +36,11 @@ export default class ConfigCommandService {
 
   static async setConfigKeypair(keypairPath: string) {
     try {
-      const accountService = await AccountCommandService.instance();
       await db.put(SNOWFLAKE_CLI_KEYPAIR_PATH, keypairPath);
       const loadedKeypair: Keypair = loadKeypairFromLocalPath(keypairPath);
       const walletAddress = loadedKeypair.publicKey.toBase58();
       await db.put(SNOWFLAKE_CLI_WALLET_ADDRESS, walletAddress);
+      const accountService = await AccountCommandService.instance();
       const feeAccount = await accountService.getSnowflakePDAForUser(
         walletAddress
       );
