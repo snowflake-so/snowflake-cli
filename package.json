@@ -1,0 +1,51 @@
+{
+  "name": "@snowflake-so/snowflake-cli",
+  "version": "1.0.2",
+  "description": "Snowflake CLI - A CLI for Solana Automation",
+  "main": "bin/index.js",
+  "bin": {
+    "snowflake": "bin/index.js"
+  },
+  "dependencies": {
+    "@project-serum/anchor": "^0.21.0",
+    "@snowflake-so/snowflake-sdk": "^1.0.9",
+    "@solana/web3.js": "^1.22.0",
+    "bluebird": "^3.7.2",
+    "commander": "^9.0.0",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.10.0",
+    "level": "^7.0.1",
+    "typescript": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.36",
+    "@types/inquirer": "^8.2.0",
+    "@types/level": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "^37.9.7",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-unicorn": "^41.0.0",
+    "ts-node": "^10.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/snowflake-so/"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node bin/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "solana",
+    "snowflake",
+    "cli"
+  ],
+  "author": "team@snowflake.so",
+  "license": "MIT"
+}
