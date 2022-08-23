@@ -1,2 +1,2 @@
-export * as LogUtils from './log';
-export * as DatabaseUtils from './db';
+export * as LogUtils from "./log";
+export * as DatabaseUtils from "./db";
