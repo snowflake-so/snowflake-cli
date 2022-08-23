@@ -1,4 +1,4 @@
-# Snowflake CLI
+# Snowflake Safe CLI
 
 Snowflake CLI provides you a set of commands to interact with the Solana on-chain cron jobs.
 
@@ -9,13 +9,13 @@ Read this article to know more about the CLI: https://medium.com/@snowflake_so/s
 Install with NPM
 
 ```
-npm install -g @snowflake-so/snowflake-cli
+npm install -g @snowflake-so/safe-cli
 ```
 
 Or with Yarn
 
 ```
-yarn add -G @snowflake-so/snowflake-cli
+yarn add -G @snowflake-so/safe-cli
 ```
 
 ## How to use the CLI?

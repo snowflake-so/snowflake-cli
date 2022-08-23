@@ -1,1 +1,1 @@
-export { default as EndpointConstant } from "./endpoint";
+export { default as EndpointConstant } from './endpoint';

@@ -1,15 +1,14 @@
-import { loadKeypairFromLocalPath } from "../utils/snowflake";
-import { EndpointConstant } from "../constants";
+import { loadKeypairFromLocalPath } from '../utils/snowflake';
+import { EndpointConstant } from '../constants';
 import {
   SNOWFLAKE_CLI_FEE_ACCOUNT,
   SNOWFLAKE_CLI_KEYPAIR_PATH,
   SNOWFLAKE_CLI_RPC_URL,
   SNOWFLAKE_CLI_WALLET_ADDRESS,
-} from "../constants/db-key";
-import db from "../utils/db";
-import { Keypair } from "@solana/web3.js";
-import { logError } from "../utils/log";
-import AccountCommandService from "./account-command-service";
+} from '../constants/db-key';
+import db from '../utils/db';
+import { Keypair } from '@solana/web3.js';
+import { logError } from '../utils/log';
 
 export default class ConfigCommandService {
   static async setConfigUrl(url: string) {
@@ -40,11 +39,6 @@ export default class ConfigCommandService {
       const loadedKeypair: Keypair = loadKeypairFromLocalPath(keypairPath);
       const walletAddress = loadedKeypair.publicKey.toBase58();
       await db.put(SNOWFLAKE_CLI_WALLET_ADDRESS, walletAddress);
-      const accountService = await AccountCommandService.instance();
-      const feeAccount = await accountService.getSnowflakePDAForUser(
-        walletAddress
-      );
-      await db.put(SNOWFLAKE_CLI_FEE_ACCOUNT, feeAccount);
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -97,40 +91,29 @@ export default class ConfigCommandService {
 
   static async getConfig(): Promise<Record<string, string>> {
     try {
-      const [rpcUrl, keypairPath, walletAddress, feeAccount] =
-        await Promise.allSettled([
-          this.getConfigUrl(),
-          this.getConfigKeypair(),
-          this.getConfigWalletAddress(),
-          this.getConfigFeeAccount(),
-        ]);
+      const [rpcUrl, keypairPath, walletAddress] = await Promise.allSettled([
+        this.getConfigUrl(),
+        this.getConfigKeypair(),
+        this.getConfigWalletAddress(),
+      ]);
 
       return {
-        "RPC URL": rpcUrl.status === "fulfilled" ? rpcUrl.value : "Not set",
-        "Keypair path":
-          keypairPath.status === "fulfilled" ? keypairPath.value : "Not set",
-        "Wallet address":
-          walletAddress.status === "fulfilled"
-            ? walletAddress.value
-            : "Not set",
-        "Fee account":
-          feeAccount.status === "fulfilled" ? feeAccount.value : "Not set",
+        'RPC URL': rpcUrl.status === 'fulfilled' ? rpcUrl.value : 'Not set',
+        'Keypair path': keypairPath.status === 'fulfilled' ? keypairPath.value : 'Not set',
+        'Wallet address': walletAddress.status === 'fulfilled' ? walletAddress.value : 'Not set',
       };
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-  static async require(args: any, next: any): Promise<(args: any) => any> {
+  static async require(args: any, next: any) {
     try {
       await ConfigCommandService.getConfigUrl();
       await ConfigCommandService.getConfigKeypair();
       return next(args);
     } catch (error) {
-      logError(
-        "Please set Snowflake CLI configuration first!",
-        "Configuration Error: "
-      );
+      logError('Please set Snowflake CLI configuration first!', 'Configuration Error: ');
     }
   }
 }

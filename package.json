@@ -1,29 +1,48 @@
 {
-  "name": "@snowflake-so/snowflake-cli",
-  "version": "1.0.5",
-  "description": "Snowflake CLI - A CLI for Solana Automation",
-  "main": "bin/index.js",
+  "name": "@snowflake-so/safe-cli",
+  "version": "1.0.1",
+  "description": "Snowflake Safe CLI: Manage multisig wallets on command line",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "snowflake": "bin/index.js"
   },
   "dependencies": {
-    "@project-serum/anchor": "^0.21.0",
-    "@snowflake-so/snowflake-sdk": "^1.0.10",
-    "@solana/web3.js": "^1.22.0",
+    "@project-serum/anchor": "^0.24.2",
+    "@snowflake-so/safe-sdk": "^1.0.8",
+    "@solana/web3.js": "^1.43.5",
     "bluebird": "^3.7.2",
     "commander": "^9.0.0",
     "dotenv": "^16.0.0",
-    "eslint": "^8.10.0",
     "level": "^7.0.1",
+    "moment": "^2.29.4",
     "typescript": "^4.5.5"
+  },
+  "keywords": [
+    "Snowflake Safe",
+    "solana",
+    "multisig",
+    "cli"
+  ],
+  "pre-commit": {
+    "run": [
+      "prettier:check",
+      "prettier:fix",
+      "lint"
+    ]
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.36",
+    "@types/bn.js": "^5.1.0",
     "@types/inquirer": "^8.2.0",
     "@types/level": "^6.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@types/node-fetch": "^2.6.2",
     "@typescript-eslint/eslint-plugin-tslint": "^5.14.0",
-    "@typescript-eslint/parser": "^5.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "eslint": "^8.0.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.1.2",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsdoc": "^37.9.7",
@@ -33,19 +52,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/snowflake-so/"
+    "url": "https://github.com/snowflake-so/snowflake-safe-cli"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "yarn rimraf dist && tsc -p src",
+    "watch": "tsc -w -p src",
+    "lint": "npx eslint --debug '**/*.{js,ts}'",
+    "lint:fix": "npx eslint --fix '**/*.{js,ts}'",
+    "prettier:fix": "prettier --config .prettierrc.js '**/*.{js,ts}' --write",
+    "prettier:check": "prettier --config .prettierrc.js '**/*.{js,ts}' --check",
+    "prepublish": "tsc -p src",
     "dev": "ts-node src/index.ts",
-    "start": "node bin/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js"
   },
-  "keywords": [
-    "solana",
-    "snowflake",
-    "cli"
-  ],
   "author": "team@snowflake.so",
-  "license": "MIT"
+  "license": "ISC"
 }

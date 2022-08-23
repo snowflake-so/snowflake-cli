@@ -1,34 +1,24 @@
-import { Command } from "commander";
-import {
-  AccountCommand,
-  ConfigCommand,
-  JobCommand,
-  JobsCommand,
-} from "./commands";
-import { CommandInstructionLayout, CommandLayout } from "./types";
-import "dotenv/config";
+import { Command } from 'commander';
+import { ConfigCommand, ProposalCommand, SafeCommand } from './commands';
+import { CommandInstructionLayout, CommandLayout } from './types';
+import 'dotenv/config';
 
 const program = new Command();
 
 const snowflakeCommandInstruction: CommandInstructionLayout = {
-  version: "0.0.1",
-  name: "snowflake",
-  description: "Snowflake CLI to interact with Snowflake SDK",
-  commands: [ConfigCommand, JobCommand, JobsCommand, AccountCommand],
+  version: '0.0.1',
+  name: 'snowsafe',
+  description: '❄️  Snowflake Safe CLI: Manage multisig wallets on command line ❄️',
+  commands: [ConfigCommand, ProposalCommand, SafeCommand],
 };
 
 class SnowflakeCli {
-  static async executeCommands(
-    commands: CommandLayout[],
-    mainProgram: Command
-  ) {
-    commands.forEach((command) => {
-      const subProgram = program
-        .createCommand(command.command)
-        .description(command.description);
+  static async executeCommands(commands: CommandLayout[], mainProgram: Command) {
+    commands.forEach(command => {
+      const subProgram = program.createCommand(command.command).description(command.description);
       if (command.argumentLayout && command.argumentLayout.arguments) {
         const argumentLayout = command.argumentLayout;
-        argumentLayout.arguments.forEach((argument) => {
+        argumentLayout.arguments.forEach(argument => {
           subProgram.argument(argument.argument, argument.description);
         });
         if (argumentLayout.action) {
@@ -37,7 +27,7 @@ class SnowflakeCli {
       }
       if (command.optionLayout && command.optionLayout.options) {
         const optionLayout = command.optionLayout;
-        optionLayout.options.forEach((option) => {
+        optionLayout.options.forEach(option => {
           subProgram.option(option.option, option.description);
         });
         if (optionLayout.action) {

@@ -1,19 +1,18 @@
 {
   "compilerOptions": {
+    "target": "es6",
+    "declaration": true,
     "module": "commonjs",
-    "target": "es2017",
-    "lib": ["es2015"],
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "bin",
-    "sourceRoot": "src",
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*", "src/types/*"]
-    },
+    "outDir": "./dist",
+    "strict": true,
+    "baseUrl": "./",
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node"],
     "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "inlineSourceMap": true,
+    "strictPropertyInitialization": false,
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*"]
+  "lib": ["es2019"],
+  "include": ["src"]
 }
